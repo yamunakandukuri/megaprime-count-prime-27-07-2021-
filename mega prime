@@ -1,0 +1,46 @@
+//https://www.hackerrank.com/challenges/megaprime-numbers/problem
+import java.io.*;
+import java.math.*;
+import java.security.*;
+import java.text.*;
+import java.util.*;
+import java.util.concurrent.*;
+import java.util.function.*;
+import java.util.regex.*;
+
+
+public class Solution 
+{
+    static long next(long x)
+    {
+        if(x==0)
+        {
+            return 0;
+        }
+        long y=x/10;
+        long y1=next(y+(x%10>7?1:0));
+        if(y!=y1)
+        {
+            return 10*y1+2;
+        }
+        return y1*10+(x%10<=2?2:x%10<=3?3:x%10<=5?5:7);
+        
+    }
+    public static void main(String args[])
+    {
+       Scanner sc=new Scanner(System.in);
+       long start=sc.nextLong();
+       long end=sc.nextLong();
+       long res=0;
+       start=next(start);
+       while(start<=end)
+       {
+           if(BigInteger.valueOf(start).isProbablePrime(20))
+           {
+               res++;
+           }
+           start=next(start+1);
+       }
+       System.out.println(res);
+}
+}
